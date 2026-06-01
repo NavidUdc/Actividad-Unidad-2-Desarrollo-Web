@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+
+  
+</head>
+
+<body>
+
+<!-- CABECERO -->
+<header th:replace="plantillas/partes :: cabecero"></header>
+
+<!-- MENU -->
+<nav>
+
+    <div>
+
+        <a th:href="@{/}">
+            Inicio
+        </a>
+
+        <a th:href="@{/usuarios}">
+            Usuarios
+        </a>
+
+        <a th:href="@{/usuarios/agregar}">
+            Nuevo Usuario
+        </a>
+
+    </div>
+
+    <div>
+
+        <form th:action="@{/logout}"
+              method="post"
+              style="display:inline">
+
+            <button type="submit"
+                    class="logout-btn">
+
+                Cerrar sesion
+
+            </button>
+
+        </form>
+
+    </div>
+
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container">
+
+    <h2>PAGINA DE INICIO</h2>
+
+    <!-- BOTON AGREGAR -->
+    <a th:href="@{/usuarios/agregar}"
+       th:text="#{usuario.crear}"
+       class="btn-link">
+
+        AGREGAR USUARIO
+
+    </a>
+
+    <h4>LISTA DE PERSONAS</h4>
+
+    <hr>
+
+    <!-- MENSAJE SI LA LISTA ESTA VACIA -->
+    <div th:if="${usuarios == null or #lists.isEmpty(usuarios)}">
+
+        <p th:text="#{usuario.lista-vacia}">
+            La lista de Usuarios esta Vacia
+        </p>
+
+    </div>
+
+    <!-- TABLA -->
+    <table th:if="${usuarios != null and !#lists.isEmpty(usuarios)}">
+
+        <thead>
+
+        <tr>
+
+            <th th:text="#{usuario.cedula}">
+                CEDULA
+            </th>
+
+            <th th:text="#{usuario.clave}">
+                CLAVE
+            </th>
+
+            <th th:text="#{usuario.nombre}">
+                NOMBRE
+            </th>
+
+            <th th:text="#{usuario.email}">
+                EMAIL
+            </th>
+
+            <th th:text="#{accion.editar}">
+                EDITAR
+            </th>
+
+            <th th:text="#{accion.eliminar}">
+                ELIMINAR
+            </th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="u : ${usuarios}">
+
+            <td th:text="${u.cedula}"></td>
+
+            <td th:text="${u.clave}"></td>
+
+            <td th:text="${u.nombre}"></td>
+
+            <td th:text="${u.email}"></td>
+
+            <!-- EDITAR -->
+            <td>
+
+                <a th:href="@{/usuarios/editar/{cedula}(cedula=${u.cedula})}"
+                   th:text="#{accion.editar}">
+
+                    EDITAR
+
+                </a>
+
+            </td>
+
+            <!-- ELIMINAR -->
+            <td>
+
+                <a th:href="@{/usuarios/eliminar/{cedula}(cedula=${u.cedula})}"
+                   th:text="#{accion.eliminar}"
+                   onclick="return confirm('¿Desea eliminar este usuario?')">
+
+                    ELIMINAR
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- PIE -->
+<footer th:replace="plantillas/partes :: pie"></footer>
+
+</body>
+
+</html>

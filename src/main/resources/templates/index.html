@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - CRUDL Usuarios</title>
+
+</head>
+<body>
+<nav>
+    <div>
+        <a th:href="@{/}"> Inicio</a>
+        <a th:href="@{/usuarios}"> Usuarios</a>
+        <a th:href="@{/usuarios/agregar}"> Nuevo Usuario</a>
+       
+    </div>
+    <div class="user-info">
+        <span> <span sec:authentication="name">Usuario</span></span>
+        <form th:action="@{/logout}" method="post" style="display:inline">
+            <button type="submit" class="logout-btn">Cerrar sesion</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+    <h1> Sistema de Gestion con Spring Boot MVC</h1>
+    <p class="subtitle">Aplicacion web con dos modulos CRUDL usando Spring Boot, JPA, Thymeleaf y Spring Security.</p>
+
+    <div class="cards">
+        <!-- Modulo Usuarios -->
+        <div class="card">
+            <h2> Modulo de Usuarios</h2>
+            <p>Gestion completa de usuarios del sistema con autenticacion segura.</p>
+            <ul>
+                <li><strong>C:</strong> Registrar usuario</li>
+                <li><strong>R:</strong> Consultar usuario</li>
+                <li><strong>U:</strong> Actualizar usuario</li>
+                <li><strong>D:</strong> Eliminar usuario</li>
+                <li><strong>L:</strong> Listar usuarios</li>
+            </ul>
+            <a th:href="@{/usuarios}" class="btn">Ver Usuarios</a>
+            <a th:href="@{/usuarios/agregar}" class="btn btn-blue"> Nuevo</a>
+        </div>
+
+    
+    </div>
+</div>
+</body>
+</html>

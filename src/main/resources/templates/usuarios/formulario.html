@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>DATOS DEL USUARIO</title>
+
+</head>
+<body>
+
+<header th:replace="plantillas/partes :: cabecero"></header>
+
+<nav>
+    <div>
+        <a th:href="@{/}"> Inicio</a>
+        <a th:href="@{/usuarios}"> Usuarios</a>
+        <a th:href="@{/usuarios/agregar}">Nuevo Usuario</a>
+    </div>
+    <div>
+        <form th:action="@{/logout}" method="post" style="display:inline">
+            <button type="submit" class="logout-btn">Cerrar sesion</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <h1>[[#{usuario.formulario}]]</h1>
+
+        <!-- Regresar siempre va a la lista de usuarios -->
+        <a th:href="@{/usuarios}" th:text="#{accion.regresar}">REGRESAR</a>
+        <br/><br/>
+
+        <form th:action="${usuario.cedula != null and !#strings.isEmpty(usuario.cedula)} ? '/usuarios/actualizar' : '/usuarios/guardar'"
+              th:object="${usuario}" method="post">
+
+            <!-- CEDULA -->
+            <div class="form-group">
+                <label for="cedula" th:text="#{usuario.cedula}">CEDULA:</label>
+                <input type="text" id="cedula" name="cedula" th:field="*{cedula}" th:readonly="${usuario.cedula != null and !#strings.isEmpty(usuario.cedula)}" />
+                <span th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}" class="error"></span>
+                <div class="hint" th:if="${usuario.cedula != null and !#strings.isEmpty(usuario.cedula)}">La cedula no se puede modificar.</div>
+            </div>
+
+            <!-- CLAVE -->
+            <div class="form-group">
+                <label for="clave" th:text="#{usuario.clave}">CLAVE:</label>
+                <input type="password" id="clave" name="clave" th:field="*{clave}" />
+                <span th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}" class="error"></span>
+            </div>
+
+            <!-- NOMBRE -->
+            <div class="form-group">
+                <label for="nombre" th:text="#{usuario.nombre}">NOMBRE:</label>
+                <input type="text" id="nombre" name="nombre" th:field="*{nombre}" />
+                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error"></span>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group">
+                <label for="email" th:text="#{usuario.email}">EMAIL:</label>
+                <input type="email" id="email" name="email" th:field="*{email}" />
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <!-- Boton LIMPIAR solo aparece al CREAR, no al editar -->
+                <input th:if="${usuario.cedula == null or #strings.isEmpty(usuario.cedula)}"
+                       type="reset" th:value="#{accion.reiniciar}" class="btn btn-reset" />
+
+                <!-- Boton GUARDAR cambia texto segun modo -->
+                <input type="submit" name="guardar"
+                       th:value="${usuario.cedula != null and !#strings.isEmpty(usuario.cedula)} ? #{accion.editar} : #{accion.agregar}"
+                       class="btn" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="plantillas/partes :: pie"></footer>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>EJEMPLO DE APP WEB MVC CON SPRING BOOT</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+<!-- Guia 14: fragmento cabecero — Guia 15: usa #{} para leer messages.properties -->
+<header th:fragment="cabecero">
+    <h1 th:text="#{plantilla.titulo}">El titulo</h1>
+</header>
+
+<!-- Guia 14: fragmento pie — Guia 15: usa #{} para leer messages.properties -->
+<footer th:fragment="pie">
+    <span th:text="#{plantilla.pie}">El Pie</span>
+    <p><a href="https://youtube.com/@navidjoselobatosaez8251?si=pRHRnlWMLGusuwVG">
+        Canal de Youtube
+    </a></p>
+</footer>
+
+</body>
+</html>
