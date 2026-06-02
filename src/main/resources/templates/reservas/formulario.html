@@ -9,6 +9,298 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>DATOS DE LA RESERVA</title>
         <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+            /* Global Styles */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                color: #333;
+            }
+
+            /* Header Styles */
+            header {
+                background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+                color: white;
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+                margin-bottom: 5px;
+            }
+
+            header p {
+                font-size: 1rem;
+                opacity: 0.9;
+            }
+
+            /* Navigation Styles */
+            nav {
+                background: white;
+                padding: 15px 30px;
+                display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav div {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245,101,101,0.4);
+        }
+
+        /* Container and Card Styles */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Title Styles */
+        h1 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* Back Button */
+        a[th|href="@{/reservas}"] {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        a[th|href="@{/reservas}"]:hover {
+            color: #764ba2;
+            transform: translateX(-5px);
+        }
+
+        /* Form Styles */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+
+        input[type="text"]:hover,
+        input[type="number"]:hover,
+        input[type="date"]:hover {
+            border-color: #a0aec0;
+        }
+
+        /* Error Styles */
+        .error {
+            color: #f56565;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            padding: 5px 10px;
+            background: #fff5f5;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* Button Styles */
+        input[type="reset"],
+        input[type="submit"] {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="reset"] {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        input[type="reset"]:hover {
+            background: #cbd5e0;
+            transform: translateY(-2px);
+        }
+
+        .btn, input[type="submit"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn:hover, input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav div {
+                justify-content: center;
+            }
+        }
+
+        /* Placeholder Styles */
+        ::placeholder {
+            color: #a0aec0;
+            opacity: 1;
+        }
+
+        /* Required Field Indicator */
+        input[required] {
+            border-left: 4px solid #667eea;
+        }
+
+        /* Card hover effect */
+        .card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+
+        /* Button container */
+        div[style*="margin-top: 24px"] {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
                 </head>
                 <body>
                     <!-- CABECERO -->
@@ -206,7 +498,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                                                 <div class="form-group">
 
-                                                    <label th:text="#{reserva.Checkin}">
+                                                    <label th:text="#{reserva.checkin}">
                                                         Hora de CheckIn
                                                     </label>
 
@@ -284,7 +576,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                                             <div class="form-group">
 
-                                                <label th:text="#{reserva.horaCheckout}">
+                                                <label th:text="#{reserva.checkout}">
                                                     Hora ChekOut
                                                 </label>
 

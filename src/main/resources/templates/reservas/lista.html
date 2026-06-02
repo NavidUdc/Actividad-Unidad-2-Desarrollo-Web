@@ -4,20 +4,329 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="plantillas/partes :: cabecero">
-        <title>TODO supply a title</title>
+    <head>
+        <title>Lista de reservas</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+        <style>
+            /* Global Styles */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                color: #333;
+            }
+
+            /* Header - si tu cabecero no tiene estilos, agrega esto */
+            header {
+                background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+                color: white;
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            /* Navigation Styles */
+            nav {
+                background: white;
+                padding: 15px 30px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 15px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            nav div {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                color: #667eea;
+                text-decoration: none;
+                font-weight: 500;
+                padding: 8px 16px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+
+            nav a:hover {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                transform: translateY(-2px);
+            }
+
+            .logout-btn {
+                background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+                color: white;
+                border: none;
+                padding: 8px 20px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+
+            .logout-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(245,101,101,0.4);
+            }
+
+            /* Container Styles */
+            .container {
+                max-width: 1400px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            /* Top Bar Styles */
+            .top-bar {
+                background: white;
+                border-radius: 15px;
+                padding: 20px 30px;
+                margin-bottom: 30px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                animation: slideDown 0.5s ease;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .top-bar h1 {
+                color: #2c3e50;
+                font-size: 1.8rem;
+                margin: 0;
+                border-left: 4px solid #667eea;
+                padding-left: 15px;
+            }
+
+            /* Button Styles */
+            .btn {
+                display: inline-block;
+                padding: 10px 25px;
+                border: none;
+                border-radius: 8px;
+                font-size: 0.95rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                text-align: center;
+            }
+
+            .btn-success {
+                background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+                color: white;
+            }
+
+            .btn-success:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(72,187,120,0.4);
+            }
+
+            /* Table Styles */
+            table {
+                width: 100%;
+                background: white;
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                border-collapse: collapse;
+                animation: fadeIn 0.5s ease;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            thead {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            th {
+                padding: 15px 12px;
+                text-align: left;
+                font-weight: 600;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #e2e8f0;
+                color: #4a5568;
+            }
+
+            tbody tr {
+                transition: all 0.3s ease;
+            }
+
+            tbody tr:hover {
+                background-color: #f7fafc;
+                transform: scale(1.01);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            /* Action Links */
+            td a {
+                display: inline-block;
+                padding: 5px 12px;
+                margin: 0 5px;
+                text-decoration: none;
+                border-radius: 6px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+
+            td a:first-child {
+                background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+                color: white;
+            }
+
+            td a:first-child:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(66,153,225,0.3);
+            }
+
+            td a:last-child {
+                background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+                color: white;
+            }
+
+            td a:last-child:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(245,101,101,0.3);
+            }
+
+            /* Empty State Message */
+            .empty-message {
+                background: white;
+                border-radius: 15px;
+                padding: 40px;
+                text-align: center;
+                color: #718096;
+                font-size: 1.1rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            /* Footer */
+            footer {
+                background: #2c3e50;
+                color: white;
+                text-align: center;
+                padding: 20px;
+                margin-top: 40px;
+            }
+
+            /* Scrollbar Styling */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #667eea;
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #764ba2;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 1024px) {
+                .container {
+                    padding: 0 15px;
+                }
+                
+                table {
+                    display: block;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                }
+                
+                th, td {
+                    padding: 10px 8px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .top-bar {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                
+                .top-bar h1 {
+                    border-left: none;
+                    border-bottom: 3px solid #667eea;
+                    padding-bottom: 10px;
+                }
+                
+                nav {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                
+                nav div {
+                    justify-content: center;
+                }
+                
+                th, td {
+                    font-size: 0.8rem;
+                    padding: 8px 6px;
+                }
+            }
+        </style>
     </head >
     <body>
+         <header th:replace="~{plantillas/partes :: cabecero}"></header>
         <nav>
     <div>
         <a th:href="@{/}"> Inicio</a>
         <a th:href="@{/usuarios}"> Usuarios</a>
         <a th:href="@{/usuarios/agregar}"> Nuevo Usuario</a>
         <a th:href="@{/reservas}"> Reservas</a>
-        <a th:href="@{/reserva/agregar}"> Nueva Reserva</a>
+        <a th:href="@{/reservas/agregar}"> Nueva Reserva</a>
     </div>
     <div>
         <form th:action="@{/logout}" method="post" style="display:inline">
@@ -40,16 +349,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <table th:if="${reservas != null and reservas.size() > 0}">
         <thead>
         <tr>
-            <th th:text="#{reservas.hotel}">Hotel</th>
-            <th th:text="#{reservas.huesped}">Huesped</th>
-            <th th:text="#{reservas.fechaInicio}">Fecha Inicio</th>
-            <th th:text="#{reservas.fechaFin}">Fecha Fin</th>
-            <th th:text="#{reservas.valor}">Valor</th>
-            <th th:text="#{reservas.habitacion}">Habitacion</th>
-            <th th:text="#{reservas.horaCheckin}">CheckIn</th>
-            <th th:text="#{reservas.acompaniantes}">Acompaniantes</th>
-            <th th:text="#{reservas.empleadoAtiende}">Empleado que recibe</th>
-            <th th:text="#{reservas.descripcion}">Descripcion</th>
+            <th th:text="#{reserva.hotel}">Hotel</th>
+            <th th:text="#{reserva.huesped}">Huesped</th>
+            <th th:text="#{reserva.fechaInicio}">Fecha Inicio</th>
+            <th th:text="#{reserva.fechaFin}">Fecha Fin</th>
+            <th th:text="#{reserva.valor}">Valor</th>
+            <th th:text="#{reserva.habitacion}">Habitacion</th>
+            <th th:text="#{reserva.checkin}">CheckIn</th>
+            <th th:text="#{reserva.numAcompaniantes}">Acompaniantes</th>
+            <th th:text="#{reserva.empleadoAtiende}">Empleado que recibe</th>
+            <th th:text="#{reserva.descripcion}">Descripcion</th>
             <th th:text="#{accion.editar}">Editar</th>
             <th th:text="#{accion.eliminar}">Eliminar</th>
         </tr>
@@ -58,12 +367,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <tr th:each="reserva : ${reservas}">
             <td th:text="${reserva.hotel}"></td>
             <td th:text="${reserva.huesped}"></td>
-            <td th:text="${reserva.habitacion}"></td>
             <td th:text="${reserva.fechaInicio}"></td>
-            <td th:text="${reserva.fechaFin} + ' kg'"></td>
-            <td th:text="${reserva.Descripcion}"></td>
-            <td th:text="${reserva.empleadoAtiende}"></td>
+            <td th:text="${reserva.fechaFin}"></td>
             <td th:text="${reserva.valor}"></td>
+            <td th:text="${reserva.habitacion}"></td>
+            <td th:text="${reserva.checkin}"></td>
+            <td th:text="${reserva.numAcompaniantes}"></td>
+            <td th:text="${reserva.empleadoAtiende}"></td>
+            <td th:text="${reserva.descripcion}"></td>
             <td><a th:href="@{/reservas/editar/{id}(id=${reserva.id})}" th:text="#{accion.editar}">Editar</a></td>
             <td><a th:href="@{/reservas/eliminar/{id}(id=${reserva.id})}"
                    th:text="#{accion.eliminar}"
@@ -73,6 +384,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </table>
 </div>
 
-<footer th:replace="plantillas/partes :: pie"></footer>
+<footer th:replace="~{plantillas/partes :: pie}"></footer>
     </body>
 </html>
