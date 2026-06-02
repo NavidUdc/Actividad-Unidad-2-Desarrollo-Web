@@ -7,6 +7,7 @@ package com.misiontic.controlador;
 import com.misiontic.modelo.Reserva;
 import com.misiontic.servicio.IReservaServicio;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,9 @@ public class ReservaControlador {
     public String guardar(@Valid Reserva reserva,
                           Errors errores) {
 
+        if (reserva.getFechaInicio() == null) {
+        reserva.setFechaInicio(LocalDate.now());
+    }
         if (errores.hasErrors()) {
             return "reservas/formulario";
         }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>DETALLES DE LA RESERVA</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    <body>
+       <nav>
+    <div>
+        <a th:href="@{/}"> Inicio</a>
+        <a th:href="@{/reservas}"> Reservas</a>
+        <a th:href="@{/reservas/nueva}"> Nueva Reserva</a>
+    </div>
+    <div>
+        <form th:action="@{/logout}" method="post" style="display:inline">
+            <button type="submit" class="logout-btn">Cerrar sesion</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="card">
+        <h1>DETALLE DE LA RESERVA</h1>
+        <table>
+            <tr><th>ID</th><td th:text="${reserva.id}"></td></tr>
+            <tr><th>Hotel</th><td th:text="${reserva.hotel}"></td></tr>
+            <tr><th>Huesped</th><td th:text="${reserva.huesped}"></td></tr>
+            <tr><th>Habitacion</th><td th:text="${reserva.habitacion}"></td></tr>
+            <tr><th>Acompaniantes</th><td th:text="${reserva.acompaniantes}"></td></tr>
+            <tr><th>Fecha Inicio</th><td th:text="${reserva.fechaInicio}"></td></tr>
+            <tr><th>Fecha Fin</th><td th:text="${reserva.fechaFin}"></td></tr>
+            <tr><th>Empelado Atendio</th><td th:text="${reserva.empleadoAtiende}"></td></tr>
+            <tr><th>Hora CheckIn</th><td th:text="${reserva.horaCheckin}"></td></tr>
+            <tr><th>Hora CheckOut</th><td th:text="${reserva.horaCheckout}"></td></tr>
+            <tr><th>Valor</th><td th:text="${reserva.valor}"></td>
+            <tr><th>Empelado Despuide</th><td th:text="${reserva.empleadoDespide}"></td></tr>
+            <tr><th>Descripcion</th><td th:text="${reserva.descripcion}"></td></tr></tr>
+        </table>
+        <div>
+            <a th:href="@{/mascotas/editar/{id}(id=${mascota.id})}" class="btn btn-warning"> Editar</a>
+            <a th:href="@{/mascotas}" class="btn">← Volver al listado</a>
+        </div>
+    </div>
+</div>
+    </body>
+</html>

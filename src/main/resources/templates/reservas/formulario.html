@@ -8,320 +8,336 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <head>
         <title>DATOS DE LA RESERVA</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <!-- CABECERO -->
-<header th:replace="plantillas/partes :: cabecero"></header>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                </head>
+                <body>
+                    <!-- CABECERO -->
+                    <header th:replace="plantillas/partes :: cabecero"></header>
 
-<!-- MENU -->
-<nav>
+                    <!-- MENU -->
+                    <nav>
 
-    <div>
-        <a th:href="@{/}">Inicio</a>
-        <a th:href="@{/reservas}">Reservas</a>
-        <a th:href="@{/reservas/agregar}">Nueva Reserva</a>
-    </div>
+                        <div>
+                            <a th:href="@{/}">Inicio</a>
+                            <a th:href="@{/reservas}">Reservas</a>
+                            <a th:href="@{/reservas/agregar}">Nueva Reserva</a>
+                        </div>
 
-    <div>
-        <form th:action="@{/logout}" method="post" style="display:inline">
+                        <div>
+                            <form th:action="@{/logout}" method="post" style="display:inline">
 
-            <button type="submit" class="logout-btn">
-                Cerrar sesion
-            </button>
+                                <button type="submit" class="logout-btn">
+                                    Cerrar sesion
+                                </button>
 
-        </form>
-    </div>
+                            </form>
+                        </div>
 
-</nav>
+                    </nav>
 
-<!-- CONTENIDO -->
-<div class="container">
+                    <!-- CONTENIDO -->
+                    <div class="container">
 
-    <div class="card">
+                        <div class="card">
 
-        <!-- TITULO -->
-        <h1 th:text="#{reserva.formulario}">
-            Formulario Reserva
-        </h1>
+                            <!-- TITULO -->
+                            <h1 th:text="#{reserva.formulario}">
+                                Formulario Reserva
+                            </h1>
 
-        <!-- BOTON REGRESAR -->
-        <a th:href="@{/reservas}"
-           th:text="#{accion.regresar}">
-            Regresar
-        </a>
+                            <!-- BOTON REGRESAR -->
+                            <a th:href="@{/reservas}"
+                               th:text="#{accion.regresar}">
+                                Regresar
+                            </a>
 
-        <br><br>
+                            <br><br>
 
-        <!-- FORMULARIO -->
-        <form th:action="${reserva.id == null} ? '/reservas/guardar' : '/reservas/actualizar'"
-              th:object="${reserva}"
-              method="post">
+                                    <!-- FORMULARIO -->
+                                    <form th:action="${reserva.id == null} ? '/reservas/guardar' : '/reservas/actualizar'"
+                                          th:object="${reserva}"
+                                          method="post">
 
-            <!-- ID -->
-            <input type="hidden" th:field="*{id}" />
+                                        <!-- ID -->
+                                        <input type="hidden" th:field="*{id}" />
 
-            <!-- FILA 1 -->
-            <div class="form-row">
+                                        <!-- FILA 1 -->
+                                        <div class="form-row">
 
-                <div class="form-group">
+                                            <div class="form-group">
 
-                    <label th:text="#{reserva.hotel}">
-                        Hotel
-                    </label>
+                                                <label th:text="#{reserva.hotel}">
+                                                    Hotel
+                                                </label>
 
-                    <input type="text"
-                           id="hotel"
-                           th:field="*{hotel}"
-                           placeholder="Nombre del hotel" />
+                                                <input type="text"
+                                                       id="hotel"
+                                                       th:field="*{hotel}"
+                                                       placeholder="Nombre del hotel" />
 
-                    <span th:if="${#fields.hasErrors('hotel')}"
-                          th:errors="*{hotel}"
-                          class="error">
-                    </span>
+                                                <span th:if="${#fields.hasErrors('hotel')}"
+                                                      th:errors="*{hotel}"
+                                                      class="error">
+                                                </span>
 
-                </div>
+                                            </div>
 
-                <div class="form-group">
+                                            <div class="form-group">
 
-                    <label th:text="#{reserva.huesped}">
-                        Huesped
-                    </label>
+                                                <label th:text="#{reserva.huesped}">
+                                                    Huesped
+                                                </label>
 
-                    <input type="text"
-                           id="huesped"
-                           th:field="*{huesped}"
-                           placeholder="Navid lobato" />
+                                                <input type="text"
+                                                       id="huesped"
+                                                       th:field="*{huesped}"
+                                                       placeholder="Navid lobato" />
 
-                    <span th:if="${#fields.hasErrors('huesped')}"
-                          th:errors="*{huesped}"
-                          class="error">
-                    </span>
+                                                <span th:if="${#fields.hasErrors('huesped')}"
+                                                      th:errors="*{huesped}"
+                                                      class="error">
+                                                </span>
 
-                </div>
+                                            </div>
 
-            </div>
+                                        </div>
 
-            <!-- FILA 2 -->
-            <div class="form-row">
+                                        <div class="form-row">
 
-                <div class="form-group">
+                                            <div class="form-group">
+                                                <label th:text="#{reserva.fechaInicio}">
+                                                    Fecha Inicio
+                                                </label>
+                                                <input type="date"
+                                                       id="fechaInicio"
+                                                       th:field="*{fechaInicio}"
+                                                       required />
+                                                <span th:if="${#fields.hasErrors('fechaInicio')}"
+                                                      th:errors="*{fechaInicio}"
+                                                      class="error">
+                                                </span>
+                                            </div>
 
-                    <label th:text="#{reserva.valor}">
-                        Valor
-                    </label>
+                                            <!-- FILA 2 -->
+                                            <div class="form-row">
 
-                    <input type="number"
-                           id="valor"
-                           th:field="*{valor}"
-                           placeholder="0000" />
+                                                <div class="form-group">
 
-                    <span th:if="${#fields.hasErrors('raza')}"
-                          th:errors="*{raza}"
-                          class="error">
-                    </span>
+                                                    <label th:text="#{reserva.valor}">
+                                                        Valor
+                                                    </label>
 
-                </div>
+                                                    <input type="number"
+                                                           id="valor"
+                                                           th:field="*{valor}"
+                                                           placeholder="0000" />
 
-                <div class="form-group">
+                                                    <span th:if="${#fields.hasErrors('valor')}"
+                                                          th:errors="*{valor}"
+                                                          class="error">
+                                                    </span>
 
-                    <label th:text="#{reserva.acompaniantes}">
-                        Acompaniantes
-                    </label>
+                                                </div>
 
-                      <input type="number"
-                           id="acompaniantes"
-                           th:field="*{acompaniantes}"
-                           placeholder="1" />
+                                                <div class="form-group">
 
-                    <span th:if="${#fields.hasErrors('acompaniantes')}"
-                          th:errors="*{acompaniantes}"
-                          class="error">
-                    </span>
+                                                    <label th:text="#{reserva.numAcompaniantes}">
+                                                        Acompaniantes
+                                                    </label>
 
-                </div>
+                                                    <input type="number"
+                                                           id="numAcompaniantes"
+                                                           th:field="*{numAcompaniantes}"
+                                                           placeholder="1" />
 
-            </div>
+                                                    <span th:if="${#fields.hasErrors('numAcompaniantes')}"
+                                                          th:errors="*{numAcompaniantes}"
+                                                          class="error">
+                                                    </span>
 
-            <!-- FILA 3 -->
-            <div class="form-row">
+                                                </div>
 
-                <div class="form-group">
+                                            </div>
 
-                    <label th:text="#{reserva.habitacion}">
-                        Habitacion
-                    </label>
+                                            <!-- FILA 3 -->
+                                            <div class="form-row">
 
-                    <input type="text"
-                           id="habitacion"
-                           th:field="*{habitacion}"
-                           placeholder="Ej: SE301" />
+                                                <div class="form-group">
 
-                    <span th:if="${#fields.hasErrors('habitacion')}"
-                          th:errors="*{habitacion}"
-                          class="error">
-                    </span>
+                                                    <label th:text="#{reserva.habitacion}">
+                                                        Habitacion
+                                                    </label>
 
-                </div>
+                                                    <input type="text"
+                                                           id="habitacion"
+                                                           th:field="*{habitacion}"
+                                                           placeholder="Ej: SE301" />
 
-                <div class="form-group">
+                                                    <span th:if="${#fields.hasErrors('habitacion')}"
+                                                          th:errors="*{habitacion}"
+                                                          class="error">
+                                                    </span>
 
-                    <label th:text="#{reserva.empladoAtiende}">
-                       Atiende
-                    </label>
+                                                </div>
 
-                    <input type="text"
-                           id="empladoAtiende"
-                           th:field="*{empladoAtiende}"
-                           placeholder="Ej: Jose Suatrez" />
+                                                <div class="form-group">
 
+                                                    <label th:text="#{reserva.empleadoAtiende}">
+                                                        Atiende
+                                                    </label>
 
-                    <span th:if="${#fields.hasErrors('empladoAtiende')}"
-                          th:errors="*{empladoAtiende}"
-                          class="error">
-                    </span>
+                                                    <input type="text"
+                                                           id="empleadoAtiende"
+                                                           th:field="*{empleadoAtiende}"
+                                                           placeholder="Ej: Jose Suatrez" />
 
-                </div>
 
-            </div>
+                                                    <span th:if="${#fields.hasErrors('empleadoAtiende')}"
+                                                          th:errors="*{empleadoAtiende}"
+                                                          class="error">
+                                                    </span>
 
-            <!-- FILA 4 -->
-            <div class="form-row">
+                                                </div>
 
-                <div class="form-group">
+                                            </div>
 
-                    <label th:text="#{reserva.Checkin}">
-                        Hora de CheckIn
-                    </label>
+                                            <!-- FILA 4 -->
+                                            <div class="form-row">
 
-                    <input type="Checkin"
-                           id="Checkin"
-                           th:field="*{Checkin}"
-                      />
+                                                <div class="form-group">
 
-                    <span th:if="${#fields.hasErrors('Checkin')}"
-                          th:errors="*{Checkin}"
-                          class="error">
-                    </span>
+                                                    <label th:text="#{reserva.Checkin}">
+                                                        Hora de CheckIn
+                                                    </label>
 
-                </div>
+                                                    <input type="date"
+                                                           id="checkin"
+                                                           th:field="*{checkin}"
+                                                           />
 
-                <div class="form-group">
+                                                    <span th:if="${#fields.hasErrors('Checkin')}"
+                                                          th:errors="*{Checkin}"
+                                                          class="error">
+                                                    </span>
 
-                    <label th:text="#{reserva.descripcion}">
-                        Descripcion
-                    </label>
+                                                </div>
 
-                    <input type="text"
-                           id="descripcion"
-                           th:field="*{descripcion}" />
+                                                <div class="form-group">
 
-                    <span th:if="${#fields.hasErrors('descripcion')}"
-                          th:errors="*{descripcion}"
-                          class="error">
-                    </span>
+                                                    <label th:text="#{reserva.descripcion}">
+                                                        Descripcion
+                                                    </label>
 
-                </div>
+                                                    <input type="text"
+                                                           id="descripcion"
+                                                           th:field="*{descripcion}" />
 
-            </div>
+                                                    <span th:if="${#fields.hasErrors('descripcion')}"
+                                                          th:errors="*{descripcion}"
+                                                          class="error">
+                                                    </span>
 
-            <!-- FILA 5 -->
-            <div class="form-row">
+                                                </div>
 
-                <div class="form-group">
+                                            </div>
 
-                    <label th:text="#{reserva.fechaFin}">
-                        Fecha Fin
-                    </label>
+                                            <!-- FILA 5 -->
+                                            <div class="form-row">
 
-                    <input type="date"
-                           id="fechaFin"
-                           th:field="*{fechaFin}"
-                            />
+                                                <div class="form-group">
 
-                    <span th:if="${#fields.hasErrors('fechaFin')}"
-                          th:errors="*{fechaFin}"
-                          class="error">
-                    </span>
+                                                    <label th:text="#{reserva.fechaFin}">
+                                                        Fecha Fin
+                                                    </label>
 
-                </div>
+                                                    <input type="date"
+                                                           id="fechaFin"
+                                                           th:field="*{fechaFin}"
+                                                           />
 
-                <div class="form-group">
+                                                    <span th:if="${#fields.hasErrors('fechaFin')}"
+                                                          th:errors="*{fechaFin}"
+                                                          class="error">
+                                                    </span>
 
-                    <label th:text="#{reserva.empleadoDespide}">
-                        Despide
-                    </label>
+                                                </div>
 
-                    <input type="text"
-                           id="empleadoDespide"
-                           th:field="*{empleadoDespide}" />
+                                                <div class="form-group">
 
-                    <span th:if="${#fields.hasErrors('empleadoDespide')}"
-                          th:errors="*{empleadoDespide}"
-                          class="error">
-                    </span>
+                                                    <label th:text="#{reserva.empleadoDespide}">
+                                                        Despide
+                                                    </label>
 
-                </div>
+                                                    <input type="text"
+                                                           id="empleadoDespide"
+                                                           th:field="*{empleadoDespide}" />
 
-            </div>
+                                                    <span th:if="${#fields.hasErrors('empleadoDespide')}"
+                                                          th:errors="*{empleadoDespide}"
+                                                          class="error">
+                                                    </span>
 
-          
-            <div class="form-group">
+                                                </div>
 
-                <label th:text="#{reserva.horaCheckout}">
-                    Hora ChekOut
-                </label>
+                                            </div>
 
-                <input type="date"
-                       id="horaCheckout"
-                       th:field="*{horaCheckout}"
-                      />
 
-                <span th:if="${#fields.hasErrors('horaCheckout')}"
-                      th:errors="*{horaCheckout}"
-                      class="error">
-                </span>
+                                            <div class="form-group">
 
-            </div>
+                                                <label th:text="#{reserva.horaCheckout}">
+                                                    Hora ChekOut
+                                                </label>
 
-           
+                                                <input type="date"
+                                                       id="Checkout"
+                                                       th:field="*{Checkout}"
+                                                       />
 
-            <!-- BOTONES -->
-            <div style="margin-top: 24px;">
+                                                <span th:if="${#fields.hasErrors('Checkout')}"
+                                                      th:errors="*{Checkout}"
+                                                      class="error">
+                                                </span>
 
-                <!-- NUEVA RESERVA -->
-                <div th:if="${reserva.id == null}">
+                                            </div>
 
-                    <input type="reset"
-                           th:value="#{accion.reiniciar}" />
 
-                    &nbsp;&nbsp;&nbsp;
 
-                    <input type="submit"
-                           th:value="#{accion.agregar}"
-                           class="btn" />
+                                            <!-- BOTONES -->
+                                            <div style="margin-top: 24px;">
 
-                </div>
+                                                <!-- NUEVA RESERVA -->
+                                                <div th:if="${reserva.id == null}">
 
-                <!-- EDITAR RESERVA -->
-                <div th:if="${horaCheckout.id != null}">
+                                                    <input type="reset"
+                                                           th:value="#{accion.reiniciar}" />
 
-                    <input type="submit"
-                           th:value="#{accion.editar}"
-                           class="btn" />
+                                                    &nbsp;&nbsp;&nbsp;
 
-                </div>
+                                                    <input type="submit"
+                                                           th:value="#{accion.agregar}"
+                                                           class="btn" />
 
-            </div>
+                                                </div>
 
-        </form>
+                                                <!-- EDITAR RESERVA -->
+                                                <div th:if="${reserva.id != null}">
+                                                    h:
+                                                    <input type="submit"
+                                                           th:value="#{accion.editar}"
+                                                           class="btn" />
 
-    </div>
+                                                </div>
 
-</div>
+                                            </div>
 
-<!-- PIE -->
-<footer th:replace="plantillas/partes :: pie"></footer>
+                                    </form>
 
-    </body>
-</html>
+                                    </div>
+
+                                    </div>
+
+                                    <!-- PIE -->
+                                    <footer th:replace="plantillas/partes :: pie"></footer>
+
+                                    </body>
+                                    </html>

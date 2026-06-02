@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="plantillas/partes :: cabecero">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head >
+    <body>
+        <nav>
+    <div>
+        <a th:href="@{/}"> Inicio</a>
+        <a th:href="@{/usuarios}"> Usuarios</a>
+        <a th:href="@{/usuarios/agregar}"> Nuevo Usuario</a>
+        <a th:href="@{/reservas}"> Reservas</a>
+        <a th:href="@{/reserva/agregar}"> Nueva Reserva</a>
+    </div>
+    <div>
+        <form th:action="@{/logout}" method="post" style="display:inline">
+            <button type="submit" class="logout-btn">Cerrar sesion</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="top-bar">
+        <h1> Lista de Reservas</h1>
+        <a th:href="@{/reservas/agregar}" class="btn btn-success" th:text="#{reserva.crear}">Nueva Reserva</a>
+    </div>
+
+    
+    <div th:if="${reservas == null or reservas.size() == 0}">
+        <p th:text="#{reserva.lista-vacia}">No hay reservas registradas.</p>
+    </div>
+
+    <table th:if="${reservas != null and reservas.size() > 0}">
+        <thead>
+        <tr>
+            <th th:text="#{reservas.hotel}">Hotel</th>
+            <th th:text="#{reservas.huesped}">Huesped</th>
+            <th th:text="#{reservas.fechaInicio}">Fecha Inicio</th>
+            <th th:text="#{reservas.fechaFin}">Fecha Fin</th>
+            <th th:text="#{reservas.valor}">Valor</th>
+            <th th:text="#{reservas.habitacion}">Habitacion</th>
+            <th th:text="#{reservas.horaCheckin}">CheckIn</th>
+            <th th:text="#{reservas.acompaniantes}">Acompaniantes</th>
+            <th th:text="#{reservas.empleadoAtiende}">Empleado que recibe</th>
+            <th th:text="#{reservas.descripcion}">Descripcion</th>
+            <th th:text="#{accion.editar}">Editar</th>
+            <th th:text="#{accion.eliminar}">Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reserva : ${reservas}">
+            <td th:text="${reserva.hotel}"></td>
+            <td th:text="${reserva.huesped}"></td>
+            <td th:text="${reserva.habitacion}"></td>
+            <td th:text="${reserva.fechaInicio}"></td>
+            <td th:text="${reserva.fechaFin} + ' kg'"></td>
+            <td th:text="${reserva.Descripcion}"></td>
+            <td th:text="${reserva.empleadoAtiende}"></td>
+            <td th:text="${reserva.valor}"></td>
+            <td><a th:href="@{/reservas/editar/{id}(id=${reserva.id})}" th:text="#{accion.editar}">Editar</a></td>
+            <td><a th:href="@{/reservas/eliminar/{id}(id=${reserva.id})}"
+                   th:text="#{accion.eliminar}"
+                   onclick="return confirm('Desea eliminbar la reserva?')">Eliminar</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="plantillas/partes :: pie"></footer>
+    </body>
+</html>

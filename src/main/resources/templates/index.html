@@ -12,6 +12,8 @@
         <a th:href="@{/}"> Inicio</a>
         <a th:href="@{/usuarios}"> Usuarios</a>
         <a th:href="@{/usuarios/agregar}"> Nuevo Usuario</a>
+        <a th:href="@{/reservas}"> Reservas</a>
+        <a th:href="@{/reservas/agregar}"> Nueva Reserva</a>
        
     </div>
     <div class="user-info">
@@ -42,6 +44,20 @@
             <a th:href="@{/usuarios/agregar}" class="btn btn-blue"> Nuevo</a>
         </div>
 
+        <!-- Modulo Reservas -->
+        <div class="card">
+            <h2> Modulo de Reservas</h2>
+            <p>Gestion completa de mascotas con todos sus atributos y datos del propietario.</p>
+            <ul>
+                <li><strong>C:</strong> Registrar Reserva</li>
+                <li><strong>R:</strong> Consultar Reserva</li>
+                <li><strong>U:</strong> Actualizar Reserva</li>
+                <li><strong>D:</strong> Eliminar Reserva</li>
+                <li><strong>L:</strong> Listar Reserva</li>
+            </ul>
+            <a th:href="@{/reservas}" class="btn">Ver Reservas</a>
+            <a th:href="@{/reservas/agregar}" class="btn btn-blue"> Nueva</a>
+        </div>
     
     </div>
 </div>

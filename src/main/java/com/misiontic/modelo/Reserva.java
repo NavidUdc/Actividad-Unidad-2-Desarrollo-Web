@@ -41,11 +41,13 @@ public class Reserva implements Serializable {
     @Column(nullable= false, length = 100)
     private String huesped;
     
-    @NotEmpty
-    @Column(nullable = false, length = 100)
-    private LocalDate fechaIncio;
     
-    @NotEmpty
+    @Column(nullable = false, length = 100)
+    private LocalDate fechaInicio;
+    
+    @Column()
+    private LocalDate fechaFin;
+    
     @Positive
     @Column(nullable = false, length = 100)
     private double valor;
@@ -54,17 +56,17 @@ public class Reserva implements Serializable {
     @Column(nullable = false, length =50)
     private String habitacion;
     
-    @NotEmpty
+   
     @Column(nullable = false)
     private int numAcompaniantes;
     
-    @NotEmpty
-    @Column(nullable = false, length = 100)
-    private LocalDate checkIn;
+    
+    @Column(nullable = false)
+    private LocalDate Checkin;
     
     
     @Column()
-    private LocalDate checkOut;
+    private LocalDate Checkout;
     
     @NotEmpty
     @Column(nullable = false, length = 100)
